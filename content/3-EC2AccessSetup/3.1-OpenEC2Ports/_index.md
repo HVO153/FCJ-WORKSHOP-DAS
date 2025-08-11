@@ -12,13 +12,13 @@ pre: " <b> 3.1 </b> "
    + Click **Instances**.  
    + Select the instance named **blogmicroservice**.
 
-![portec2](/images/3.InstanceSetup/001-ports.png)
+![portec2](images/3.InstanceSetup/001-ports.png)
 
 2. Select the **Security** tab.  
    + Click the link under **Security groups**.
 
-![portec2](/images/3.InstanceSetup/002-ports.png)  
-![portec2](/images/3.InstanceSetup/003-ports.png)
+![portec2](images/3.InstanceSetup/002-ports.png)  
+![portec2](images/3.InstanceSetup/003-ports.png)
 
 3. Next:  
    + Under **Inbound rules**, click **Edit inbound rules**.  
@@ -26,4 +26,4 @@ pre: " <b> 3.1 </b> "
    + Repeat for the **Port range** `15672`.  
    + Click **Save rules** to apply the changes.
 
-![portec2](/images/3.InstanceSetup/004-ports.png)
+![portec2](images/3.InstanceSetup/004-ports.png)

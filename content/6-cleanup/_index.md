@@ -15,8 +15,8 @@ We will follow these steps to delete the resources we created in this practice.
    + Click **Instance state**.  
    + Click **Terminate instance**, then click **Terminate** to confirm.
 
-![Clean](/images/6.clean/001-cleanEC2.png)  
-![Clean](/images/6.clean/002-cleanEC2.png)  
+![Clean](images/6.clean/001-cleanEC2.png)  
+![Clean](images/6.clean/002-cleanEC2.png)  
 
 #### Delete S3 Bucket
 
@@ -24,22 +24,22 @@ We will follow these steps to delete the resources we created in this practice.
    + Select the bucket.  
    + Click **Delete**.  
 
-![Clean](/images/6.clean/001-cleanS3.png)  
+![Clean](images/6.clean/001-cleanS3.png)  
 
 - Since objects still exist, you must delete all objects inside the bucket before deleting the bucket.  
 
-![Clean](/images/6.clean/002-cleanS3.png)  
+![Clean](images/6.clean/002-cleanS3.png)  
 
 2. Next:  
    + Enter `permanently delete` in the confirmation field.  
    + Click **Empty**.  
 
-![Clean](/images/6.clean/003-cleanS3.png)  
-![Clean](/images/6.clean/004-cleanS3.png)  
+![Clean](images/6.clean/003-cleanS3.png)  
+![Clean](images/6.clean/004-cleanS3.png)  
 
 3. Continue:  
    + Enter `blog-micro-data-archive` in the confirmation field.  
    + Click **Delete bucket**.  
 
-![Clean](/images/6.clean/005-cleanS3.png)  
-![Clean](/images/6.clean/006-cleanS3.png)  
+![Clean](images/6.clean/005-cleanS3.png)  
+![Clean](images/6.clean/006-cleanS3.png)  

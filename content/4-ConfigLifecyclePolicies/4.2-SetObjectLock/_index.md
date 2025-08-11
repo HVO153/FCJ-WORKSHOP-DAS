@@ -18,6 +18,6 @@ To protect data from being deleted or modified, you need to set Object Lock for 
     + Set the object retention period.  
     + Click **Save changes** to apply.
 
-![objlock](/images/4.LifecyclePolicies/005-objlock.png)  
-![objlock](/images/4.LifecyclePolicies/006-objlock.png)  
-![objlock](/images/4.LifecyclePolicies/007-objlock.png)
+![objlock](images/4.LifecyclePolicies/005-objlock.png)  
+![objlock](images/4.LifecyclePolicies/006-objlock.png)  
+![objlock](images/4.LifecyclePolicies/007-objlock.png)

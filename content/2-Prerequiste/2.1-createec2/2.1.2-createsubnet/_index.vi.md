@@ -12,7 +12,7 @@ pre : " <b> 2.1.2 </b> "
 1. Click **Subnets**.
    + Click **Create subnet**.
 
-![VPC](/images/2.prerequisite/004-creasubnet.png)
+![VPC](images/2.prerequisite/004-creasubnet.png)
 
 2. Tại trang **Create subnet**.
    + Tại mục **VPC ID** click chọn **VPC** mà bạn đã tạo trước đó.
@@ -20,7 +20,7 @@ pre : " <b> 2.1.2 </b> "
    + Tại mục **Availability Zone** chọn Availability zone thứ hai.
    + Tại mục **IPv4 CIRD block** điền **172.31.0.0/28**.
 
-![VPC](/images/2.prerequisite/005-subnet.png)
+![VPC](images/2.prerequisite/005-subnet.png)
 
 3. Kéo xuống cuối trang , click **Create subnet**.
 

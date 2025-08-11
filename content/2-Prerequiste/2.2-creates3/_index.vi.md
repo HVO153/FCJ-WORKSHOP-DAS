@@ -14,18 +14,18 @@ Trong bước này, bạn sẽ tạo một S3 Bucket để sử dụng cho việ
 2. Ở thanh điều hướng bên trái, chọn **General purpose buckets**.
 3. Nhấn **Create bucket**.  
 
-![buckets3](/images/2.prerequisite/009-createbucket.png)
+![buckets3](images/2.prerequisite/009-createbucket.png)
 
 4. Tại trang **Create bucket**:
    - **Bucket type**: chọn **General purpose**.  
    - **Bucket name**: nhập **blog-micro-data-archive**.  
    - **Object Ownership**: chọn **ACLs disabled**.
 
-![buckets3](/images/2.prerequisite/010-createbucket.png)
+![buckets3](images/2.prerequisite/010-createbucket.png)
 
 5. Ở mục **Block Public Access**, giữ nguyên mặc định (để tích vào ô **Block all public access**).
 
-![buckets3](/images/2.prerequisite/011-createbucket.png)
+![buckets3](images/2.prerequisite/011-createbucket.png)
 
 6. Ở mục **Bucket key**, chọn **Disable**.
 
@@ -33,4 +33,4 @@ Trong bước này, bạn sẽ tạo một S3 Bucket để sử dụng cho việ
    - Trong **Advanced settings**, tại phần **Object Lock**, chọn **Enable** và tích ô xác nhận.
 8. Click **Create bucket**
 
-![buckets3](/images/2.prerequisite/012-createbucket.png)
+![buckets3](images/2.prerequisite/012-createbucket.png)

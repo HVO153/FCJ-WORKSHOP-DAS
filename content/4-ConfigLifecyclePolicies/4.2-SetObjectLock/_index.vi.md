@@ -17,6 +17,6 @@ pre : " <b> 4.2 </b> "
     + Đặt thời gian khóa đối tượng.
     + Click **Save changes** để lưu thay đổi.
 
-![objlock](/images/4.LifecyclePolicies/005-objlock.png)
-![objlock](/images/4.LifecyclePolicies/006-objlock.png)
-![objlock](/images/4.LifecyclePolicies/007-objlock.png)
+![objlock](images/4.LifecyclePolicies/005-objlock.png)
+![objlock](images/4.LifecyclePolicies/006-objlock.png)
+![objlock](images/4.LifecyclePolicies/007-objlock.png)

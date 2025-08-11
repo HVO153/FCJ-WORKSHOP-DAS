@@ -12,7 +12,7 @@ Trong bước này, bạn cần tạo một VPC mới và một subnet mới.Sau
 
 Tổng quan kiến trúc sau khi các bạn hoàn tất bước này sẽ như sau:
 
-![VPC](/images/arc-01.png)
+![VPC](images/arc-01.png)
 
 Để tìm hiểu cách tạo các EC2 instance và VPC với  subnet các bạn có thể tham khảo bài lab :
   - [Giới thiệu về Amazon EC2](https://000004.awsstudygroup.com/vi/)

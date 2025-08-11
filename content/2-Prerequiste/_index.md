@@ -11,7 +11,7 @@ To complete this lab, you need to have an S3 Bucket, IAM access with S3 permissi
 {{% /notice %}}
 
 {{% notice note %}}
-Since I have applied this topic to my own project, you may need to download the project as well to perform this lab.
+Since I have applied this topic to my own project, you may need to download the project as well to perform this lab.Download it [here](https://github.com/HVO153/Example-DASProject)
 {{% /notice %}}
 
 

@@ -11,7 +11,7 @@ pre : " <b> 2.</b> "
 {{% /notice %}}
 
 {{% notice note %}}
-Vì tôi có áp dụng đề tài này vào Project của tôi, nên bạn có thể sẽ cần phải tải thêm Project để thực hiện bài Lab này.Tải [tại đây]()
+Vì tôi có áp dụng đề tài này vào Project của tôi, nên bạn có thể sẽ cần phải tải thêm Project để thực hiện bài Lab này.Tải [tại đây](https://github.com/HVO153/Example-DASProject)
 {{% /notice %}}
 
 Trước khi bắt đầu triển khai chiến lược lưu trữ dữ liệu (Data Archival Strategy), bạn cần hoàn tất các bước chuẩn bị sau:

@@ -12,7 +12,7 @@ chapter : false
 In this lab, you will explore the basic concepts and hands-on steps involved in implementing a **Data Archival Strategy** using **Amazon S3** in combination with **S3 Glacier** and **Lifecycle Policies**. The lab guides you through configuring automatic transitions of data from S3 Standard to S3 Glacier to optimize long-term storage costs. You will also learn how to enable **Object Lock** to protect data from accidental deletion.
 
 
-![ConnectPrivate](/images/arcdas-log.png) 
+![das](images/arcdas-log.png) 
 
 ### Content
  1. [Introduction ](1-introduce/)

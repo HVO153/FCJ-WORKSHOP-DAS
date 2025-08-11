@@ -14,15 +14,15 @@ pre : " <b> 3.2 </b> "
    + Click chọn instance **blogmicroservice**.
    + Click **Connect**.
 
-![package](/images/3.InstanceSetup/005-package.png)
+![package](images/3.InstanceSetup/005-package.png)
 
 2. Tại trang **Connect to instance**
     + Chọn Tab **EC2 Instance Connect**.
     + Click **Connect**.
 
-![package](/images/3.InstanceSetup/006-package.png)
+![package](images/3.InstanceSetup/006-package.png)
 
-![package](/images/3.InstanceSetup/007-package.png)
+![package](images/3.InstanceSetup/007-package.png)
 
 3. Tiếp theo, bạn copy từng lệnh và paste lên trên đây: 
 
@@ -49,7 +49,7 @@ Hiển thị các container:`docker ps -a`
 
 Nếu container đã tồn tại nhưng bị dừng, bạn chỉ cần khởi động lại:`docker start rabbitmq-container`
 
-![package](/images/3.InstanceSetup/008-package.png)
+![package](images/3.InstanceSetup/008-package.png)
 
 4. Quay lại trang [EC2](https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Instances:)
     + Click chọn instance **blogmicroservice**.
@@ -58,6 +58,6 @@ Nếu container đã tồn tại nhưng bị dừng, bạn chỉ cần khởi đ
     + Nhập **Username** : `admin`, **Password** : `admin123`.
     + Click **Login**.
 
-![package](/images/3.InstanceSetup/009-package.png)
-![package](/images/3.InstanceSetup/010-package.png)
-![package](/images/3.InstanceSetup/011-package.png)
+![package](images/3.InstanceSetup/009-package.png)
+![package](images/3.InstanceSetup/010-package.png)
+![package](images/3.InstanceSetup/011-package.png)

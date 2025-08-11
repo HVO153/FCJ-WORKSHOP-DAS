@@ -10,7 +10,7 @@ In this step, you need to create a new VPC and a new subnet.Then, launch a Ubunt
 
 The architecture overview after you complete this step will be as follows:
 
-![VPC](/images/)
+![VPC](images/arc-01.png)
 
 To learn how to create EC2 instances and VPCs with subnets, you can refer to the lab:
   - [About Amazon EC2](https://000004.awsstudygroup.com/en/)

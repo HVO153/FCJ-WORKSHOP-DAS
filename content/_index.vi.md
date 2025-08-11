@@ -12,7 +12,7 @@ chapter : false
 Trong bài lab này, bạn sẽ tìm hiểu các khái niệm cơ bản và thực hành về chiến lược lưu trữ dữ liệu (Data Archival Strategy) sử dụng dịch vụ **Amazon S3** kết hợp với **S3 Glacier** và **Lifecycle Policy**. Bài lab sẽ hướng dẫn cách cấu hình tự động chuyển dữ liệu từ S3 Standard sang S3 Glacier để tối ưu hóa chi phí lưu trữ lâu dài. Bạn cũng sẽ được hướng dẫn cách kích hoạt Object Lock để bảo vệ dữ liệu không bị xóa ngoài ý muốn.
 
 
-![ConnectPrivate](/images/arcdas-log.png) 
+![das](images/arcdas-log.png) 
 
 ### Nội dung
 

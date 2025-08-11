@@ -12,7 +12,7 @@ pre : " <b> 2.1.2 </b> "
 1. Click **Subnets**.  
     + Click **Create subnet**.
 
-![VPC](/images/2.prerequisite/004-creasubnet.png)
+![VPC](images/2.prerequisite/004-creasubnet.png)
 
 2. On the **Create subnet** page:  
     + In the **VPC ID** field, select the **VPC** you created earlier.  
@@ -20,6 +20,6 @@ pre : " <b> 2.1.2 </b> "
     + In the **Availability Zone** field, select the second availability zone.  
     + In the **IPv4 CIDR block** field, enter **172.31.0.0/28**.
 
-![VPC](/images/2.prerequisite/005-subnet.png)
+![VPC](images/2.prerequisite/005-subnet.png)
 
 3. Scroll down to the bottom of the page and click **Create subnet**.

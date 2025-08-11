@@ -15,7 +15,7 @@ In this step, you will create a lifecycle rule with two actions applied to the o
    + Switch to the **Management** tab.
    + Click **Create lifecycle rule** to start.
 
-![lifecycle](/images/4.LifecyclePolicies/001-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/001-lifecycle.png)
 
 2. Next:  
    + Enter **Lifecycle rule name**: `archive-to-glacier-and-delete`.
@@ -25,7 +25,7 @@ In this step, you will create a lifecycle rule with two actions applied to the o
    + Check **Expire current versions of objects**.
    + Check the confirmation box **I acknowledge that this lifecycle...**.
 
-![lifecycle](/images/4.LifecyclePolicies/002-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/002-lifecycle.png)
 
 3. Then:  
    + Choose **Storage class transitions**: **Glacier Flexible Retrieval (formerly Glacier)**.
@@ -33,5 +33,5 @@ In this step, you will create a lifecycle rule with two actions applied to the o
    + Set the expiration time for the object versions, creating a delete marker after the object is created.
    + Click **Create rule** to finish.
 
-![lifecycle](/images/4.LifecyclePolicies/003-lifecycle.png)
-![lifecycle](/images/4.LifecyclePolicies/004-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/003-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/004-lifecycle.png)

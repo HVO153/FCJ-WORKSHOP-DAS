@@ -14,7 +14,7 @@ In this step, you will create an IAM User with full access to the S3 Bucket.
 2. In the left navigation pane, select **Users**.  
 3. Click **Create user**.  
 
-![useriam](/images/2.prerequisite/013-createuseriam.png)
+![useriam](images/2.prerequisite/013-createuseriam.png)
 
 4. On the **Create user** page:  
    - **User name**: enter **any name you want**.  
@@ -27,18 +27,18 @@ In this step, you will create an IAM User with full access to the S3 Bucket.
    + If you want the user to set a new password upon first login, check **Users must create a new password...**.  
    + Click **Next** to proceed to **Set permissions**.  
 
-![useriam](/images/2.prerequisite/014-createuseriam.png)
+![useriam](images/2.prerequisite/014-createuseriam.png)
 
 6. On the **Set permissions** page:  
    - Under **Permissions options**, select **Attach policies directly**.  
    - Under **Permissions policies**, select **AmazonS3FullAccess** to grant full access to S3.  
    - Click **Next** to proceed to **Review and create**.  
 
-![useriam](/images/2.prerequisite/015-createuseriam.png)
+![useriam](images/2.prerequisite/015-createuseriam.png)
 
 7. Review the details and click **Create user** to complete.  
 
-![useriam](/images/2.prerequisite/016-createuseriam.png)
+![useriam](images/2.prerequisite/016-createuseriam.png)
 
 {{% notice note %}}
 With this, the preparation steps are complete. Next, we will proceed to configure the ports and install packages for EC2.

@@ -15,7 +15,7 @@ Trong bước này, bạn sẽ tạo một quy tắc vòng đời với 2 hành 
    + Chuyển sang tab **Management**. 
    + Click **Create lifecycle rule** để tạo.
 
-![lifecycle](/images/4.LifecyclePolicies/001-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/001-lifecycle.png)
 
 2. Tiếp theo: 
    + Nhập **Lifecycle rule name** là `archive-to-glacier-and-delete`.
@@ -25,7 +25,7 @@ Trong bước này, bạn sẽ tạo một quy tắc vòng đời với 2 hành 
    + Tích chọn ô **Expire current versions of objects**.
    + Tích chọn ô xác nhận **I acknowledge that this lifecycle...**.
   
-![lifecycle](/images/4.LifecyclePolicies/002-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/002-lifecycle.png)
 
 3. Tiếp theo: 
    + Chọn **Choose storage class transitions** là **Glacier Flexible Retrieval (formerly Glacier)**.
@@ -33,5 +33,5 @@ Trong bước này, bạn sẽ tạo một quy tắc vòng đời với 2 hành 
    + Đặt thời gian hết hạn phiên bản, tạo phiên bản được đánh dấu xóa sau khi đối tượng được tạo.
    + Click **Create rule** để tạo.
 
-![lifecycle](/images/4.LifecyclePolicies/003-lifecycle.png)
-![lifecycle](/images/4.LifecyclePolicies/004-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/003-lifecycle.png)
+![lifecycle](images/4.LifecyclePolicies/004-lifecycle.png)

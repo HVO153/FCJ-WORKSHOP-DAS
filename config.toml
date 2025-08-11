@@ -1,6 +1,7 @@
 # Change the default theme to be use when building the site with Hugo
 theme = "hugo-theme-learn"
 baseURL = "https://hvo153.github.io/FCJ-WORKSHOP-DAS/"
+relativeURLs = true
 
 # For search functionality
 [outputs]

@@ -14,7 +14,7 @@ Trong bước này, bạn sẽ tạo một User IAM đầy đủ quyền truy c�
 2. Ở thanh điều hướng bên trái, chọn **Users**.
 3. Nhấn **Create user**.  
 
-![useriam](/images/2.prerequisite/013-createuseriam.png)
+![useriam](images/2.prerequisite/013-createuseriam.png)
 
 4. Tại trang **Create user**:
    - **User name**: nhập **tên bất kỳ bạn muốn đặt**.  
@@ -26,18 +26,18 @@ Trong bước này, bạn sẽ tạo một User IAM đầy đủ quyền truy c�
    + Nếu muốn tạo mật khẩu mới cho lần đăng nhập đầu tiên tích vào ô **Users must create a new password...**.
    + Click **Next** để tiếp tục chuyển sang **Set permissions**.
   
-  ![useriam](/images/2.prerequisite/014-createuseriam.png)
+  ![useriam](images/2.prerequisite/014-createuseriam.png)
 
 6. Tại trang **Set permissions**.
    - Tại mục **Permissions options** chọn **Attach policies directly**.
    - Tại mục **Permissions policies** chọn **AmazonS3FullAccess** cho phép đầy đủ quyền truy cập S3.
    - Click **Next** để tiếp tục chuyển sang **Review and create**.
 
-![useriam](/images/2.prerequisite/015-createuseriam.png)
+![useriam](images/2.prerequisite/015-createuseriam.png)
 
 7. Xem lại các thông tin và Click **Create user** để tạo.
 
-![useriam](/images/2.prerequisite/016-createuseriam.png)
+![useriam](images/2.prerequisite/016-createuseriam.png)
 
 {{% notice note %}}
 Như vậy, các bước chuẩn bị đã hoàn tất, giờ ta sẽ sang phần thiết lập cổng và cài đặt pakage cho EC2.

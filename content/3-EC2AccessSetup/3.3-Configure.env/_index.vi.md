@@ -14,18 +14,18 @@ pre : " <b> 3.3 </b> "
     + Tạo thêm file `.env` cho mỗi một service.
 
 
-![env](/images/3.InstanceSetup/012-env.png)
+![env](images/3.InstanceSetup/012-env.png)
 
 2. Dựa vào các hình ảnh bên dưới, bạn tự tạo và thêm lại các api vào các file **.env**
    
-![env](/images/3.InstanceSetup/env-user.png)
+![env](images/3.InstanceSetup/env-user.png)
 
 Ở 2 file **.env** của service author và blog, hãy thay **Rabbimq_Host** bằng **Public IPv4 address**.
 
-![env](/images/3.InstanceSetup/env-author.png)
+![env](images/3.InstanceSetup/env-author.png)
 
 File **.env** của **blog service** thay USER_SERVICE=`http://localhost:5000`.
-![env](/images/3.InstanceSetup/env-blog.png)
+![env](images/3.InstanceSetup/env-blog.png)
 
 
 {{% notice note %}}

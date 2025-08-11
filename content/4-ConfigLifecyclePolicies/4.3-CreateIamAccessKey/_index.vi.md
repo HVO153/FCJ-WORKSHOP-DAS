@@ -13,22 +13,22 @@ Bạn đã tạo một User IAM ở các bước trước, phần này bạn s�
      + Chọn IAM User mà bạn đã tạo
      + Click chọn **Create access key**
 
-![acckey](/images/4.LifecyclePolicies/008-acckey.png)
+![acckey](images/4.LifecyclePolicies/008-acckey.png)
 
 2. Tiếp tục:
      + Chọn **Command Line Interface**.
      + Tích vào ô xác nhận.
 
-![acckey](/images/4.LifecyclePolicies/009-acckey.png)
+![acckey](images/4.LifecyclePolicies/009-acckey.png)
 
 3. Tiếp tục: 
      + Gõ `accesskey` tại **Description tag value**.
      + Click **Create access key** để tạo.
 
-![acckey](/images/4.LifecyclePolicies/010-acckey.png)
+![acckey](images/4.LifecyclePolicies/010-acckey.png)
 
 4. Tiếp tục:
      + Click **Download .csv file** về.
      + Click **Done** hoàn thành.
 
-![acckey](/images/4.LifecyclePolicies/011-acckey.png)
+![acckey](images/4.LifecyclePolicies/011-acckey.png)
