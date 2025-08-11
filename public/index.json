@@ -1,146 +1,146 @@
 [
 {
-	"uri": "//localhost:1313/",
+	"uri": "/",
 	"title": "Data Archival Strategy",
 	"tags": [],
 	"description": "",
 	"content": "Implementing a Data Archival Strategy with Amazon S3 and Glacier Overview In this lab, you will explore the basic concepts and hands-on steps involved in implementing a Data Archival Strategy using Amazon S3 in combination with S3 Glacier and Lifecycle Policies. The lab guides you through configuring automatic transitions of data from S3 Standard to S3 Glacier to optimize long-term storage costs. You will also learn how to enable Object Lock to protect data from accidental deletion.\nContent Introduction Preparation EC2 Access Setup Configuring Lifecycle Policies Run and Results Clean up resources "
 },
 {
-	"uri": "//localhost:1313/1-introduce/",
+	"uri": "/1-introduce/",
 	"title": "Introduction",
 	"tags": [],
 	"description": "",
 	"content": "Data Archival Strategy is a solution designed to optimize long-term storage for systems with infrequently accessed data that still needs to be preserved—such as personal blogs or digital publishing platforms.\nIn this project, i implemented a storage strategy for a blog microservice architecture using the following AWS services:\nAmazon S3 Glacier for low-cost archival storage. Lifecycle Policy to automate transitions and scheduled deletions. Object Lock (compliance mode) to prevent deletion before retention time expires. By leveraging AWS archival storage services, you gain several key advantages:\nCost efficiency: Automatically moves outdated blog content to Glacier, which is significantly cheaper than S3 Standard. Automation: Lifecycle rules make it easy to manage object transitions and deletion based on time-based policies. Data protection: Object Lock ensures that archived content cannot be deleted or overwritten prematurely. Simplified management: S3’s user-friendly interface allows you to manage your archive without additional middleware. This approach is ideal for systems that:\nAccumulate large volumes of content over time. Have stale or rarely accessed data after a period. Require cost savings without sacrificing data durability or compliance. "
 },
 {
-	"uri": "//localhost:1313/4-configlifecyclepolicies/4.1-createlifecyclerule/",
+	"uri": "/4-configlifecyclepolicies/4.1-createlifecyclerule/",
 	"title": "Create Lifecycle Rule",
 	"tags": [],
 	"description": "",
 	"content": "Create Lifecycle Rule In this step, you will create a lifecycle rule with two actions applied to the objects.\nGo to AWS BUCKET. Select the bucket you created earlier: blog-micro-data-archive. Switch to the Management tab. Click Create lifecycle rule to start. Next: Enter Lifecycle rule name: archive-to-glacier-and-delete. Set the Rule scope to Apply to all objects in the bucket. Check the confirmation box I acknowledge that this rule\u0026hellip;. Check Transition current versions of objects between storage classes. Check Expire current versions of objects. Check the confirmation box I acknowledge that this lifecycle\u0026hellip;. Then: Choose Storage class transitions: Glacier Flexible Retrieval (formerly Glacier). Set Days after object creation for transitioning storage class. Set the expiration time for the object versions, creating a delete marker after the object is created. Click Create rule to finish. "
 },
 {
-	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/2.1.1-createvpc/",
+	"uri": "/2-prerequiste/2.1-createec2/2.1.1-createvpc/",
 	"title": "Create VPC",
 	"tags": [],
 	"description": "",
 	"content": "Create VPC Lab VPC Go to VPC service management console Click Your VPC. Click Create VPC. At the Create VPC page. In the Name tag field, enter Lab VPC. In the IPv4 CIDR field, enter: 10.10.0.0/16. Click Create VPC. While you may create a VPC as instructed above, I will be using the default VPC for this setup.\n"
 },
 {
-	"uri": "//localhost:1313/3-ec2accesssetup/3.1-openec2ports/",
+	"uri": "/3-ec2accesssetup/3.1-openec2ports/",
 	"title": "Open EC2 Ports",
 	"tags": [],
 	"description": "",
 	"content": "Open EC2 Ports Access the pageEC2. Click Instances. Select the instance named blogmicroservice. Select the Security tab. Click the link under Security groups. Next: Under Inbound rules, click Edit inbound rules. Click Add rule, set the Port range to 5672, and select Anywhere - IPv4 for the Source. Repeat for the Port range 15672. Click Save rules to apply the changes. "
 },
 {
-	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/",
+	"uri": "/2-prerequiste/2.1-createec2/",
 	"title": "Preparing VPC and EC2",
 	"tags": [],
 	"description": "",
 	"content": "In this step, you need to create a new VPC and a new subnet.Then, launch a Ubuntu EC2 instance within that subnet of the newly created VPC.\nThe architecture overview after you complete this step will be as follows:\nTo learn how to create EC2 instances and VPCs with subnets, you can refer to the lab:\nAbout Amazon EC2 Works with Amazon VPC Content Create VPC Create Subnet Create EC2 Ubuntu "
 },
 {
-	"uri": "//localhost:1313/2-prerequiste/",
+	"uri": "/2-prerequiste/",
 	"title": "Preparation Steps",
 	"tags": [],
 	"description": "",
 	"content": "\rTo complete this lab, you need to have an S3 Bucket, IAM access with S3 permissions, and an EC2 instance prepared in advance.\nSince I have applied this topic to my own project, you may need to download the project as well to perform this lab.\nBefore starting the implementation of the Data Archival Strategy, you should complete the following preparation steps:\nCreate an EC2 Instance. Create an S3 Bucket to store long-term data. Create an IAM User or Role with full access to Amazon S3. To learn how to create an S3 Bucket and configure permissions, refer to the following lab:\nWorking with Amazon S3 Contents Prepare VPC and EC2 Instance Create S3 Bucket Create IAM User "
 },
 {
-	"uri": "//localhost:1313/2-prerequiste/2.2-creates3/",
+	"uri": "/2-prerequiste/2.2-creates3/",
 	"title": "Create S3 Bucket",
 	"tags": [],
 	"description": "",
 	"content": "Create S3 Bucket In this step, you will create an S3 Bucket to use for storing data in this lab.\nGo to the AWS S3 Console. In the left navigation pane, select General purpose buckets. Click Create bucket. On the Create bucket page: Bucket type: select General purpose. Bucket name: enter blog-micro-data-archive. Object Ownership: select ACLs disabled. In the Block Public Access section, keep the default setting (leave Block all public access checked). In the Bucket key section, select Disable.\nTo enable Object Lock (prevent deletion or modification for a specific period of time):\nIn Advanced settings, under Object Lock, select Enable and check the confirmation box. Click Create bucket.\n"
 },
 {
-	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/2.1.2-createsubnet/",
+	"uri": "/2-prerequiste/2.1-createec2/2.1.2-createsubnet/",
 	"title": "Create Subnet",
 	"tags": [],
 	"description": "",
 	"content": "Create Subnet Click Subnets. Click Create subnet. On the Create subnet page: In the VPC ID field, select the VPC you created earlier. In the Subnet name field, enter Subnet1. In the Availability Zone field, select the second availability zone. In the IPv4 CIDR block field, enter 172.31.0.0/28. Scroll down to the bottom of the page and click Create subnet. "
 },
 {
-	"uri": "//localhost:1313/4-configlifecyclepolicies/4.2-setobjectlock/",
+	"uri": "/4-configlifecyclepolicies/4.2-setobjectlock/",
 	"title": "Set Object Lock",
 	"tags": [],
 	"description": "",
 	"content": "Set Object Lock To protect data from being deleted or modified, you need to set Object Lock for the bucket.\nGo to Bucket. Inside the bucket, switch to the Properties tab. Find the Object Lock section and click Edit. Under Default retention, select Enable. For Default retention mode, choose Compliance. Set the object retention period. Click Save changes to apply. "
 },
 {
-	"uri": "//localhost:1313/3-ec2accesssetup/3.2-setupdockerrabbitmq/",
+	"uri": "/3-ec2accesssetup/3.2-setupdockerrabbitmq/",
 	"title": "Setup Docker &amp; RabbitMQ",
 	"tags": [],
 	"description": "",
 	"content": "Setup Docker \u0026amp; RabbitMQ Access the page EC2. Click Instances. Select the instance named blogmicroservice. Click Connect. On the Connect to instance page: Select the EC2 Instance Connect tab. Click Connect. Next, copy and paste each command below into the terminal: sudo apt-get update -y sudo apt-get install docker.io -y sudo systemctl enable docker sudo systemctl start docker sudo usermod -aG docker $USER newgrp docker docker run -d --hostname rabbitmq-host \\ --name rabbitmq-container \\ -e RABBITMQ_DEFAULT_USER=admin \\ -e RABBITMQ_DEFAULT_PASS=admin123 \\ -p 5672:5672 \\ -p 15672:15672 \\ rabbitmq:3-management To list all containers, run:\ndocker ps -a\nIf the container already exists but is stopped, you can restart it by running:\ndocker start rabbitmq-container\nReturn EC2 Select the blogmicroservice instance. Copy the Public IPv4 address shown below. Open a new browser tab, paste the IP address, and append :15672. Enter Username: admin, Password: admin123. Click Login. "
 },
 {
-	"uri": "//localhost:1313/3-ec2accesssetup/",
+	"uri": "/3-ec2accesssetup/",
 	"title": "EC2 Access Setup",
 	"tags": [],
 	"description": "",
 	"content": "\rOnce the EC2 instance is created, the next step is to configure the access ports and install the necessary packages.\nThis ensures the server can run Docker and deploy the RabbitMQ container reliably, ready for subsequent tasks.\nIn this section, we will:\nOpen the required ports to access EC2. Install packages to support running Docker. Add the container host path to the project’s .env file. Content Open EC2 Ports Set up Docker \u0026amp; RabbitMQ Configure .env "
 },
 {
-	"uri": "//localhost:1313/3-ec2accesssetup/3.3-configure.env/",
+	"uri": "/3-ec2accesssetup/3.3-configure.env/",
 	"title": "Configure .env Files",
 	"tags": [],
 	"description": "",
 	"content": "Configure .env Files Open the previously downloaded project in Visual Studio Code. Go to the services directory. Here, you will see three services: user, author, and blog. Create a new .env file for each service. Based on the images below, create and add the required API configurations into the .env files. In the .env files for author and blog services, replace Rabbimq_Host with Public IPv4 address.\nIn the .env file for the blog service, replace USER_SERVICE=http://localhost:5000.\nWe have now completed the EC2 access configuration.\nNext, we will set up the Lifecycle Policy for the S3 Bucket.\n"
 },
 {
-	"uri": "//localhost:1313/4-configlifecyclepolicies/4.3-createiamaccesskey/",
+	"uri": "/4-configlifecyclepolicies/4.3-createiamaccesskey/",
 	"title": "Create Access Key",
 	"tags": [],
 	"description": "",
 	"content": "Create Access Key You have already created an IAM User in the previous steps.\nIn this section, you will create an access key to authenticate when sending data from your project.\nGo to IAM Select the IAM User you created. Click Create access key. Continue: Select Command Line Interface. Check the confirmation box. Continue: Enter accesskey in the Description tag value field. Click Create access key. Continue: Click Download .csv file. Click Done to finish. "
 },
 {
-	"uri": "//localhost:1313/2-prerequiste/2.1-createec2/2.1.3-createec2/",
+	"uri": "/2-prerequiste/2.1-createec2/2.1.3-createec2/",
 	"title": "Create EC2 Ubuntu",
 	"tags": [],
 	"description": "",
 	"content": " Go to the EC2 Management Console Click Instances. Click Launch instances. On the Launch an instance page: In the Name field, enter blogmicroservice. In the Application and OS Images section under Quick Start, select Ubuntu. In the AMI field, choose Ubuntu Server 24.04 LTS, SSD Volume Type (Free Tier). Next: In the Instance type field, select t2.micro. In the Key pair name field, choose Create new key pair and set (type: RSA, format: .pem) if you do not already have one. In the VPC-required field, select the VPC created earlier. Continue: In the Auto-assign public IP field, select Enable. In the Firewall section, select Create security group. Click Launch instance to create. "
 },
 {
-	"uri": "//localhost:1313/2-prerequiste/2.3-createuseriam/",
+	"uri": "/2-prerequiste/2.3-createuseriam/",
 	"title": "Create IAM User",
 	"tags": [],
 	"description": "",
 	"content": "Create IAM User In this step, you will create an IAM User with full access to the S3 Bucket.\nGo to the AWS IAM Console. In the left navigation pane, select Users. Click Create user. On the Create user page:\nUser name: enter any name you want. Check the box Provide user access\u0026hellip;. In the User type field, select I want to create an IAM user. In the Console password section:\nTo automatically generate a password, select Autogenerated password. To create your own password, select Custom password. If you want the user to set a new password upon first login, check Users must create a new password\u0026hellip;. Click Next to proceed to Set permissions. On the Set permissions page: Under Permissions options, select Attach policies directly. Under Permissions policies, select AmazonS3FullAccess to grant full access to S3. Click Next to proceed to Review and create. Review the details and click Create user to complete. With this, the preparation steps are complete. Next, we will proceed to configure the ports and install packages for EC2.\n"
 },
 {
-	"uri": "//localhost:1313/4-configlifecyclepolicies/",
+	"uri": "/4-configlifecyclepolicies/",
 	"title": "Configuring Lifecycle Policies",
 	"tags": [],
 	"description": "",
 	"content": "\rThis is the main content of this Lab, with the goal of configuring Lifecycle Policies for an S3 Bucket.\nThis allows stored data files to automatically transition to different storage classes, leveraging the specific advantages of each class (cost, performance, or long-term archival).\nIn addition to automatic transitions, a Lifecycle Policy also supports various options such as deleting objects, expiring objects, or managing object versions based on a time period we define.\nIn this section, we will:\nCreate a Lifecycle rule: Configure the Transition current versions action: Move the storage class of current object versions to another storage class. Configure the Expire current versions action: Expire current versions and delete objects after a specified time. Set Object Lock: Prevent deletion or overwrite of an object for a specific period of time. Add IAM access keys: Create access keys for authentication when sending data from the project. In addition to the two main actions above, a Lifecycle Policy also supports:\n- Transition noncurrent versions: Move noncurrent (older) versions of an object to another storage class.\n- Permanently delete noncurrent versions: Permanently delete noncurrent versions.\n- Delete expired object delete markers or incomplete multipart uploads: Remove expired delete markers or unfinished multipart uploads.\nContent Create Lifecycle Rule Set Object Lock Create Access Key "
 },
 {
-	"uri": "//localhost:1313/5-runandviewresults/",
+	"uri": "/5-runandviewresults/",
 	"title": "Run and Results",
 	"tags": [],
 	"description": "",
 	"content": "\rThis section demonstrates running the project and reviewing the obtained results. It includes outcomes related to preventing deletion or modification through Object Lock, as well as automatic storage class transitions and object version expiration using Lifecycle Policies.\nYou need to run npm install and npm run build, then npm run dev for each service when you first download it. Create a new post; the post\u0026rsquo;s data will be sent to the S3 bucket. Then, check the bucket to verify whether it was stored successfully. Try deleting the data file in the bucket and see if the result matches the example below. When you delete the data file, it is not actually removed. Enable show version to see that the file is marked with a delete marker, but the actual data still exists.\nIf you attempt to delete the original file, you will get the Failed to delete objects error. This confirms that the configured Object Lock is working correctly. Wait until the Object Lock retention period expires, then try deleting the file again. After successful deletion, enable show version again; this time the file should be completely removed. When the Object Lock expired on 2025-08-06 at 22:39:15, the file became eligible to transition to Glacier Flexible Retrieval according to the lifecycle rule. However, the actual transition occurred at around 21:50 on 2025-08-07 — roughly 22–23 hours later.\nThis happens because AWS S3 does not perform lifecycle transitions instantly; they are processed according to internal scan schedules without a fixed execution time. Therefore, in all cases, users should be aware that storage class transitions might be delayed compared to the expected time, even if the lifecycle rule is configured correctly.\nNote: The data file stored in the bucket must be larger than 218KB.\nIf this condition is not met, the storage class transition will not occur.\nYou need to ensure that when creating a post, the stored data size exceeds 218KB.\nOnce the object has transitioned to the Glacier Flexible Retrieval storage class, perform a restore to download and verify that the file\u0026rsquo;s data integrity remains intact. After a successful restore, you can either click Open to view it or Download to save it locally.\nCheck the expiration time of the version, and revisit later to confirm if it has expired as expected. A sign that it is working correctly is when, upon visiting the blog-micro-data-archive bucket, you see no folders or files unless show version is enabled.\n"
 },
 {
-	"uri": "//localhost:1313/6-cleanup/",
+	"uri": "/6-cleanup/",
 	"title": "Clean Up Resources",
 	"tags": [],
 	"description": "",
 	"content": "We will follow these steps to delete the resources we created in this practice.\nDelete EC2 Instance Go to the EC2 Management Console Click Instances. Click Instance state. Click Terminate instance, then click Terminate to confirm. Delete S3 Bucket Go to S3 Buckets. Select the bucket. Click Delete. Since objects still exist, you must delete all objects inside the bucket before deleting the bucket. Next: Enter permanently delete in the confirmation field. Click Empty. Continue: Enter blog-micro-data-archive in the confirmation field. Click Delete bucket. "
 },
 {
-	"uri": "//localhost:1313/categories/",
+	"uri": "/categories/",
 	"title": "Categories",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "//localhost:1313/tags/",
+	"uri": "/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",

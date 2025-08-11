@@ -1,146 +1,146 @@
 [
 {
-	"uri": "//localhost:1313/vi/",
+	"uri": "/vi/",
 	"title": "Data Archival Strategy",
 	"tags": [],
 	"description": "",
 	"content": "Triển khai chiến lược lưu trữ dữ liệu với Amazon S3 và Glacier Tổng quan Trong bài lab này, bạn sẽ tìm hiểu các khái niệm cơ bản và thực hành về chiến lược lưu trữ dữ liệu (Data Archival Strategy) sử dụng dịch vụ Amazon S3 kết hợp với S3 Glacier và Lifecycle Policy. Bài lab sẽ hướng dẫn cách cấu hình tự động chuyển dữ liệu từ S3 Standard sang S3 Glacier để tối ưu hóa chi phí lưu trữ lâu dài. Bạn cũng sẽ được hướng dẫn cách kích hoạt Object Lock để bảo vệ dữ liệu không bị xóa ngoài ý muốn.\nNội dung Giới thiệu Các bước chuẩn bị Thiết lập truy cập EC2 Cấu hình Lifecycle Policies Chạy và kết quả Dọn dẹp tài nguyên "
 },
 {
-	"uri": "//localhost:1313/vi/1-introduce/",
+	"uri": "/vi/1-introduce/",
 	"title": "Giới thiệu",
 	"tags": [],
 	"description": "",
 	"content": "Data Archival Strategy là một giải pháp giúp tối ưu lưu trữ dài hạn cho các hệ thống có dữ liệu ít truy cập nhưng cần bảo tồn, chẳng hạn như blog cá nhân hoặc nền tảng nội dung số.\nTrong đề tài này, tôi triển khai một chiến lược lưu trữ cho hệ thống blog microservice sử dụng các dịch vụ của AWS như:\nAmazon S3 Glacier để lưu trữ dữ liệu chi phí thấp. Lifecycle Policy để tự động hóa quá trình chuyển dữ liệu và xóa sau thời hạn. Object Lock (compliance mode) để bảo vệ nội dung không bị xóa trước khi hết thời gian giữ. Với việc sử dụng các dịch vụ lưu trữ của AWS, bạn sẽ có được những ưu điểm sau:\nTiết kiệm chi phí: Tự động chuyển bài viết cũ sang Glacier – lớp lưu trữ chi phí rẻ hơn nhiều so với S3 Standard. Tự động hóa: Dễ dàng thiết lập chính sách chuyển vùng và xóa dữ liệu không cần thiết sau thời gian định sẵn. Bảo mật dữ liệu: Với Object Lock, nội dung được bảo vệ không thể xóa sai hoặc do lỗi hệ thống trong thời gian giữ. Quản lý dễ dàng: Giao diện S3 đơn giản, không cần thêm dịch vụ quản lý trung gian. Giải pháp này phù hợp với các hệ thống:\nCó khối lượng nội dung tăng theo thời gian. Nội dung sau một thời gian không còn chỉnh sửa, truy cập ít. Yêu cầu tiết kiệm tài nguyên nhưng vẫn đảm bảo khả năng phục hồi dữ liệu. "
 },
 {
-	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/",
+	"uri": "/vi/2-prerequiste/2.1-createec2/",
 	"title": "Chuẩn bị VPC và EC2",
 	"tags": [],
 	"description": "",
 	"content": "\rTrong bước này, bạn cần tạo một VPC mới và một subnet mới.Sau đó tạo 1 EC2 Instance Ubuntu nằm trong subnet đó của VPC đó.\nTổng quan kiến trúc sau khi các bạn hoàn tất bước này sẽ như sau:\nĐể tìm hiểu cách tạo các EC2 instance và VPC với subnet các bạn có thể tham khảo bài lab :\nGiới thiệu về Amazon EC2 Làm việc với Amazon VPC Nội dung Tạo VPC Tạo Subnet Tạo EC2 Ubuntu "
 },
 {
-	"uri": "//localhost:1313/vi/3-ec2accesssetup/3.1-openec2ports/",
+	"uri": "/vi/3-ec2accesssetup/3.1-openec2ports/",
 	"title": "Mở cổng EC2 ",
 	"tags": [],
 	"description": "",
 	"content": "Mở các cổng EC2 Truy cập trangEC2. Click Instances. Chọn instance blogmicroservice. Chọn Tab Security. Click vào đường dẫn bên dưới Security groups. Tiếp theo: Tại mục Inbound rules click vào Edit inbound rules. Click Add rule, đặt cho Port range là 5672 và chọn Anywhere-IPv4 ở Source. Tương tự với Port range 15672. Click Save rules để lưu thay đổi. "
 },
 {
-	"uri": "//localhost:1313/vi/4-configlifecyclepolicies/4.1-createlifecyclerule/",
+	"uri": "/vi/4-configlifecyclepolicies/4.1-createlifecyclerule/",
 	"title": "Tạo Lifecycle Rule",
 	"tags": [],
 	"description": "",
 	"content": "Tạo Lifecycle Rule Trong bước này, bạn sẽ tạo một quy tắc vòng đời với 2 hành động thiết lập cho đối tượng.\nTruy cập AWS BUCKET. Chọn Bucket bạn đã tạo trước đó blog-micro-data-archive. Chuyển sang tab Management. Click Create lifecycle rule để tạo. Tiếp theo: Nhập Lifecycle rule name là archive-to-glacier-and-delete. Chọn phạm vi rule scope là Apply to all objects in the bucket. Tích chọn ô xác nhận I acknowledge that this rule\u0026hellip;. Tích chọn ô Transition current versions of objects between storage classes. Tích chọn ô Expire current versions of objects. Tích chọn ô xác nhận I acknowledge that this lifecycle\u0026hellip;. Tiếp theo: Chọn Choose storage class transitions là Glacier Flexible Retrieval (formerly Glacier). Đặt thời gian chuyển đổi lớp lưu trữ dữ liệu sau khi đối tượng được tạo Days after object creation. Đặt thời gian hết hạn phiên bản, tạo phiên bản được đánh dấu xóa sau khi đối tượng được tạo. Click Create rule để tạo. "
 },
 {
-	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/2.1.1-createvpc/",
+	"uri": "/vi/2-prerequiste/2.1-createec2/2.1.1-createvpc/",
 	"title": "Tạo VPC ",
 	"tags": [],
 	"description": "",
 	"content": "Tạo VPC Lab VPC Truy cập giao diện quản trị dịch vụ VPC Click Your VPC. Click Create VPC. Tại trang Create VPC. Tại mục Name tag điền Lab VPC. Tại mục IPv4 CIDR điền : 10.10.0.0/16. Click Create VPC. Bạn có thể tạo VPC theo hướng dẫn trên, còn với tôi đang sử dụng VPC mặc định.\n"
 },
 {
-	"uri": "//localhost:1313/vi/2-prerequiste/",
+	"uri": "/vi/2-prerequiste/",
 	"title": "Các bước chuẩn bị",
 	"tags": [],
 	"description": "",
 	"content": "\rĐể thực hiện bài lab này, bạn cần chuẩn bị sẵn một Bucket S3, quyền truy cập IAM với S3 và một EC2.\nVì tôi có áp dụng đề tài này vào Project của tôi, nên bạn có thể sẽ cần phải tải thêm Project để thực hiện bài Lab này.Tải tại đây\nTrước khi bắt đầu triển khai chiến lược lưu trữ dữ liệu (Data Archival Strategy), bạn cần hoàn tất các bước chuẩn bị sau:\nTạo một EC2 Instance . Tạo một Bucket S3 dùng để lưu trữ dữ liệu cần lưu trữ lâu dài. Tạo một User IAM có đầy đủ quyền truy cập S3. Bạn có thể tham khảo một số bài Lab có sử dụng dịch vụ S3:\nLàm việc với Amazon S3 Nội dung Chuẩn bị VPC và EC2 Instance Tạo Bucket S3 Tạo User IAM "
 },
 {
-	"uri": "//localhost:1313/vi/2-prerequiste/2.2-creates3/",
+	"uri": "/vi/2-prerequiste/2.2-creates3/",
 	"title": "Tạo Bucket S3",
 	"tags": [],
 	"description": "",
 	"content": "Tạo Bucket S3 Trong bước này, bạn sẽ tạo một S3 Bucket để sử dụng cho việc lưu trữ dữ liệu trong bài lab này.\nTruy cập AWS S3 Console. Ở thanh điều hướng bên trái, chọn General purpose buckets. Nhấn Create bucket. Tại trang Create bucket: Bucket type: chọn General purpose. Bucket name: nhập blog-micro-data-archive. Object Ownership: chọn ACLs disabled. Ở mục Block Public Access, giữ nguyên mặc định (để tích vào ô Block all public access). Ở mục Bucket key, chọn Disable.\nĐể bật tính năng khóa đối tượng (ngăn xóa hoặc chỉnh sửa trong khoảng thời gian nhất định):\nTrong Advanced settings, tại phần Object Lock, chọn Enable và tích ô xác nhận. Click Create bucket\n"
 },
 {
-	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/2.1.2-createsubnet/",
+	"uri": "/vi/2-prerequiste/2.1-createec2/2.1.2-createsubnet/",
 	"title": "Tạo Subnet ",
 	"tags": [],
 	"description": "",
 	"content": "Tạo Subnet Click Subnets. Click Create subnet. Tại trang Create subnet. Tại mục VPC ID click chọn VPC mà bạn đã tạo trước đó. Tại mục Subnet name điền Subnet1. Tại mục Availability Zone chọn Availability zone thứ hai. Tại mục IPv4 CIRD block điền 172.31.0.0/28. Kéo xuống cuối trang , click Create subnet. "
 },
 {
-	"uri": "//localhost:1313/vi/3-ec2accesssetup/3.2-setupdockerrabbitmq/",
+	"uri": "/vi/3-ec2accesssetup/3.2-setupdockerrabbitmq/",
 	"title": "Thiết lập Docker &amp; RabbitMQ ",
 	"tags": [],
 	"description": "",
 	"content": "Thiết lập Docker \u0026amp; RabbitMQ Truy cập trang EC2. Click Instances. Click chọn instance blogmicroservice. Click Connect. Tại trang Connect to instance Chọn Tab EC2 Instance Connect. Click Connect. Tiếp theo, bạn copy từng lệnh và paste lên trên đây: sudo apt-get update -y sudo apt-get install docker.io -y sudo systemctl enable docker sudo systemctl start docker sudo usermod -aG docker $USER newgrp docker docker run -d --hostname rabbitmq-host \\ --name rabbitmq-container \\ -e RABBITMQ_DEFAULT_USER=admin \\ -e RABBITMQ_DEFAULT_PASS=admin123 \\ -p 5672:5672 \\ -p 15672:15672 \\ rabbitmq:3-management Hiển thị các container:docker ps -a\nNếu container đã tồn tại nhưng bị dừng, bạn chỉ cần khởi động lại:docker start rabbitmq-container\nQuay lại trang EC2 Click chọn instance blogmicroservice. Copy Public IPv4 address bên dưới. Mở tab mới trên trình duyệt paste và thêm vào sau :15672. Nhập Username : admin, Password : admin123. Click Login. "
 },
 {
-	"uri": "//localhost:1313/vi/4-configlifecyclepolicies/4.2-setobjectlock/",
+	"uri": "/vi/4-configlifecyclepolicies/4.2-setobjectlock/",
 	"title": "Thiết lập Object Lock",
 	"tags": [],
 	"description": "",
 	"content": "Thiết lập Object Lock Để bảo vệ dữ liệu tránh bị xóa hay bị chỉnh sửa, bạn cần phải thiết lập khóa đối tượng cho Bucket.\nTruy cập Bucket. Trong Bucket, chuyển sang tab Properties. Tìm mục Object Lock, click Edit. Tại Default retention chọn Enable. Tại Default retention mode chọn Compliance. Đặt thời gian khóa đối tượng. Click Save changes để lưu thay đổi. "
 },
 {
-	"uri": "//localhost:1313/vi/3-ec2accesssetup/",
+	"uri": "/vi/3-ec2accesssetup/",
 	"title": "Thiết lập truy cập EC2",
 	"tags": [],
 	"description": "",
 	"content": "\rKhi EC2 Instance đã được tạo, bước tiếp theo là cấu hình các cổng truy cập và cài đặt những package cần thiết.\nViệc này đảm bảo máy chủ có thể chạy Docker và triển khai RabbitMQ container một cách ổn định, sẵn sàng cho các tác vụ tiếp theo.\nTrong phần này, chúng ta sẽ thực hiện các việc sau:\nMở các cổng cần thiết để truy cập EC2. Cài đặt các package phục vụ chạy Docker. Thêm đường dẫn host của container vào file .env của project. Nội dung Mở cổng EC2 Thiết lập Docker \u0026amp; RabbitMQ Cấu hình .env "
 },
 {
-	"uri": "//localhost:1313/vi/3-ec2accesssetup/3.3-configure.env/",
+	"uri": "/vi/3-ec2accesssetup/3.3-configure.env/",
 	"title": "Cấu hình file .env ",
 	"tags": [],
 	"description": "",
 	"content": "Cấu hình file .env Mở project đã tải trước đó bằng Visual Studio Code Vào thư mục services, tại đây ta thấy có 3 services: user, author, blog. Tạo thêm file .env cho mỗi một service. Dựa vào các hình ảnh bên dưới, bạn tự tạo và thêm lại các api vào các file .env Ở 2 file .env của service author và blog, hãy thay Rabbimq_Host bằng Public IPv4 address.\nFile .env của blog service thay USER_SERVICE=http://localhost:5000. Vậy chúng ta đã xong phần thiết lập truy cập cho EC2, sang phần tiếp theo là Thiết lập Lifecycle Policy cho Bucket S3.\n"
 },
 {
-	"uri": "//localhost:1313/vi/4-configlifecyclepolicies/4.3-createiamaccesskey/",
+	"uri": "/vi/4-configlifecyclepolicies/4.3-createiamaccesskey/",
 	"title": "Tạo Access Key",
 	"tags": [],
 	"description": "",
 	"content": "Tạo Access Key Bạn đã tạo một User IAM ở các bước trước, phần này bạn sẽ tạo một khóa truy cập nhằm giúp xác thực khi gửi dữ liệu từ project.\nTruy cập IAM Chọn IAM User mà bạn đã tạo Click chọn Create access key Tiếp tục: Chọn Command Line Interface. Tích vào ô xác nhận. Tiếp tục: Gõ accesskey tại Description tag value. Click Create access key để tạo. Tiếp tục: Click Download .csv file về. Click Done hoàn thành. "
 },
 {
-	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createec2/2.1.3-createec2/",
+	"uri": "/vi/2-prerequiste/2.1-createec2/2.1.3-createec2/",
 	"title": "Tạo EC2 Ubuntu",
 	"tags": [],
 	"description": "",
 	"content": " Truy cập giao diện quản trị dịch vụ EC2 Click Instances. Click Launch instances. Tại trang giao diện Launch an instance Tại mục Name gõ blogmicroservice. Tại mục Application and OS Images phần Quick Start chọn Ubuntu. Tại mục AMI chọn Ubuntu Server 24.04 LTS, SSD Volume Type(Freetier). Tiếp theo thực hiện Tại mục Instance type chọn t2.micro. Tại mục Key pair name chọn Create new key pair và (type:RSA,format: .pem) nếu chưa có. Tại mục VPC-required chọn VPC đã tạo trước đó. Tiếp theo thực hiện Tại mục Auto-assign publicIP chọn Enable. Tại mục Firewall chọn Create security group. Click Launch instance để tạo. "
 },
 {
-	"uri": "//localhost:1313/vi/2-prerequiste/2.3-createuseriam/",
+	"uri": "/vi/2-prerequiste/2.3-createuseriam/",
 	"title": "Tạo User IAM",
 	"tags": [],
 	"description": "",
 	"content": "Tạo User IAM Trong bước này, bạn sẽ tạo một User IAM đầy đủ quyền truy cập S3 Bucket.\nTruy cập AWS IAM Console. Ở thanh điều hướng bên trái, chọn Users. Nhấn Create user. Tại trang Create user: User name: nhập tên bất kỳ bạn muốn đặt. Tích vào ô Provide user access... Tại mục User type chọn I want to create an IAM user. Tại mục Console password: Bạn muốn tự động tạo mật khẩu chọn Autogenerated password. Bạn muốn tự tạo mật khẩu chọn Custom password. Nếu muốn tạo mật khẩu mới cho lần đăng nhập đầu tiên tích vào ô Users must create a new password\u0026hellip;. Click Next để tiếp tục chuyển sang Set permissions. Tại trang Set permissions. Tại mục Permissions options chọn Attach policies directly. Tại mục Permissions policies chọn AmazonS3FullAccess cho phép đầy đủ quyền truy cập S3. Click Next để tiếp tục chuyển sang Review and create. Xem lại các thông tin và Click Create user để tạo. Như vậy, các bước chuẩn bị đã hoàn tất, giờ ta sẽ sang phần thiết lập cổng và cài đặt pakage cho EC2.\n"
 },
 {
-	"uri": "//localhost:1313/vi/4-configlifecyclepolicies/",
+	"uri": "/vi/4-configlifecyclepolicies/",
 	"title": "Cấu hình Lifecycle Policies",
 	"tags": [],
 	"description": "",
 	"content": "\rĐây là nội dung chính của Lab này, với mục tiêu cấu hình Lifecycle Policies cho Bucket. Nhờ đó, các tệp dữ liệu được lưu trữ có thể tự động chuyển sang lớp lưu trữ khác, tận dụng ưu điểm riêng của từng lớp (chi phí, hiệu năng, hoặc lưu trữ lâu dài).\nNgoài việc tự động chuyển đổi, Lifecycle Policy còn hỗ trợ nhiều tùy chọn như: xóa object, hết hạn object, hoặc quản lý phiên bản theo thời gian do chúng ta thiết lập.\nTrong phần này, chúng ta sẽ thực hiện:\nTạo Lifecycle rule: Thiết lập hành động Transition current versions: Chuyển kiểu lưu trữ của các phiên bản hiện tại sang lớp lưu trữ khác. Thiết lập hành động Expire current versions: Hết hạn phiên bản hiện tại và xóa object theo thời gian định sẵn. Đặt Object Lock: Ngăn chặn việc xóa hoặc ghi đè đối tượng trong một khoảng thời gian. Thêm khóa truy cập IAM: Tạo khóa truy cập để sử dụng cho việc xác thực khi gửi dữ liệu từ project. Ngoài 2 hành động chính trên, Lifecycle Policy còn hỗ trợ:\n- Transition noncurrent versions: Chuyển các phiên bản không còn là mới nhất (noncurrent) sang lớp lưu trữ khác.\n- Permanently delete noncurrent versions: Xóa vĩnh viễn các phiên bản noncurrent.\n- Delete expired object delete markers or incomplete multipart uploads: Xóa delete marker đã hết hạn hoặc các phiên upload nhiều phần (multipart) chưa hoàn tất.\nNội dung Tạo Lifecycle Rule Thiết lập Object Lock Tạo Access Key "
 },
 {
-	"uri": "//localhost:1313/vi/5-runandviewresults/",
+	"uri": "/vi/5-runandviewresults/",
 	"title": "Chạy và kết quả",
 	"tags": [],
 	"description": "",
 	"content": "\rĐây là phần chạy project và xem các kết quả đạt được.Trong đây bao gồm các kết quả về việc ngăn xóa, chỉnh sửa của Object Lock; hay việc tự chuyển đổi lớp lưu trữ và hết hạn phiên bản đối tượng thông qua Lifecycle Policies.\nBạn cần chạy lệnh npm install và npm run build sau đó npm run dev cho mỗi service khi mới tải về. Bạn tạo một bài viết mới, dữ liệu của bài viết sẽ được chuyển về bucket S3.Sau đó, bạn vào bucket kiểm tra đã thành công hay chưa. Bạn hãy thử xóa file dữ liệu trong bucket và xem kết quả có giống bên dưới không. Bạn xóa file dữ liệu nhưng nó chưa thực sự mất, hãy bật show version để xem, khi đó file chỉ đánh dấu phiên bản xóa và thực chất nó vẫn nằm đó.Nếu bản cố gắng xóa file gốc sẽ bị thông báo Failed to delete objects.Điều này chứng minh cho bạn thấy Object Lock mà ta thiết lập đã hoạt động tốt. Hãy chờ hết hạn thời gian mà ta đã thiết lập Object Lock và thử xóa lại. Sau khi xóa thành công, bạn thử bật lại show version lúc này file đã được xóa đi sạch sẽ. Khi hết thời gian Object Lock vào ngày 6/8/2025 lúc 22:39:15, file đủ điều kiện chuyển sang Glacier Flexible Retrieval theo lifecycle rule. Tuy nhiên, đến khoảng 21:50 ngày 7/8 tầm khoảng 22 ~ 23 giờ sau, quá trình chuyển đổi mới thực sự diễn ra.\nNguyên nhân vì AWS S3 không thực hiện lifecycle transition ngay lập tức, mà xử lý theo lịch quét nội bộ, không có thời gian cụ thể. Do đó, trong mọi tình huống, người dùng cần lưu ý rằng: việc chuyển đổi trạng thái lưu trữ có thể xảy ra trễ so với thời điểm dự kiến, dù lifecycle rule đã được cấu hình đúng\nChú ý: File dữ liệu lưu trữ trong bucket bắt buộc lớn hơn 218KB, nếu điều kiện này không thỏa quy trình chuyển đổi lớp lưu trữ sẽ không thể diễn ra.Bạn cần tính toán sao cho khi tạo bài viết có dung lượng lưu trữ trên 218KB.\nSau khi đối tượng đã chuyển đổi qua lớp lưu trữ Glacier Flexible Retrieval, ta thực hiện restore để có thể tải và kiểm tra lại file đảm bảo tính toàn vẹn dữ liệu không bị thay đổi. Sau khi restore thành công, bạn có thể xem bằng cách click Open hoặc tải về bằng cách click Download.\nHãy kiểm tra thời gian hết hạn phiên bản và quay lại sau đó để xác nhận điều này có diễn ra hay không. Dấu hiệu cho thấy nó đã hoạt động tốt, bạn khi vô bucket blog-micro-data-archive sẽ không thấy bất kì folder hay file nào, và bạn chỉ có thể thấy khi bật show version.\n"
 },
 {
-	"uri": "//localhost:1313/vi/6-cleanup/",
+	"uri": "/vi/6-cleanup/",
 	"title": "Dọn dẹp tài nguyên  ",
 	"tags": [],
 	"description": "",
 	"content": "Chúng ta sẽ tiến hành các bước sau để xóa các tài nguyên chúng ta đã tạo trong bài thực hành này.\nXóa EC2 instance Truy cập giao diện quản trị dịch vụ EC2 Click Instances. Click Instance state. Click Terminate instance, sau đó click Terminate để xác nhận. Xóa S3 bucket Truy cập BUCKET. Click chọn Bucket Click Delete Vì các object vẫn còn tồn tại, bắt buộc phải xóa tất cả object có trong bucket trước khi xóa bucket. Tiếp theo: Nhập permanently delete vào ô xác nhận. Click Empty Tiếp tục: Nhập blog-micro-data-archive vào ô xác nhận. Click Delete bucket "
 },
 {
-	"uri": "//localhost:1313/vi/categories/",
+	"uri": "/vi/categories/",
 	"title": "Categories",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "//localhost:1313/vi/tags/",
+	"uri": "/vi/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",
